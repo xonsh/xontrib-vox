@@ -12,8 +12,9 @@ import itertools
 import warnings
 from pathlib import Path
 
-import xontrib.voxapi as voxapi
 from xonsh.built_ins import XSH, XonshSession
+
+import xontrib.voxapi as voxapi
 
 __all__ = ()
 

@@ -47,16 +47,16 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 [tool.setuptools]
-    
+
 packages = ["xontrib"]
 package-dir = {xontrib = "xontrib"}
-    
+
 platforms = ["any"]
 include-package-data = false
 [tool.setuptools.package-data]
-    
+
 xontrib = ["*.xsh"]
-    
+
 
 
 [tool.isort]

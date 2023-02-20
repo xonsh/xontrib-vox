@@ -10,9 +10,9 @@ from typing import TYPE_CHECKING
 
 import pytest
 from py.path import local
-
 from xonsh.platform import ON_WINDOWS
 from xonsh.pytest.tools import skip_if_on_conda, skip_if_on_msys
+
 from xontrib.voxapi import Vox, _get_vox_default_interpreter
 
 if TYPE_CHECKING:
