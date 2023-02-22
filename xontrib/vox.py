@@ -6,11 +6,12 @@ import typing as tp
 from pathlib import Path
 
 import xonsh.cli_utils as xcli
-import xontrib.voxapi as voxapi
 from xonsh.built_ins import XSH, XonshSession
 from xonsh.dirstack import pushd_fn
 from xonsh.platform import ON_WINDOWS
 from xonsh.tools import XonshError
+
+import xontrib.voxapi as voxapi
 
 __all__ = ()
 
