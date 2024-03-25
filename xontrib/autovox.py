@@ -8,6 +8,7 @@ This provides no interface for end users.
 
 Developers should look at XSH.builtins.events.autovox_policy
 """
+
 import itertools
 import warnings
 from pathlib import Path
