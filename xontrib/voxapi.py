@@ -8,6 +8,7 @@ Vox defines several events related to the life cycle of virtual environments:
 * ``vox_on_deactivate(env: str, path: pathlib.Path) -> None``
 * ``vox_on_delete(env: str) -> None``
 """
+
 import collections.abc
 import logging
 import os

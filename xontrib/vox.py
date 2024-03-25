@@ -1,4 +1,5 @@
 """Python virtual environment manager for xonsh."""
+
 import os.path
 import subprocess
 import tempfile

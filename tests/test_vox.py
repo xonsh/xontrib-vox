@@ -1,4 +1,5 @@
 """Vox tests"""
+
 import io
 import os
 import pathlib
