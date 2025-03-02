@@ -259,7 +259,8 @@ class VoxHandler(xcli.ArgParserAlias):
             except KeyError:
                 raise self.Error(f'"{name}" environment doesn\'t exist.\n')
             else:
-                self.out(f'Environment "{name}" removed.')
+                if name not in self.vox:
+                    self.out(f'Environment "{name}" removed.')
         self.out()
 
     def _in_venv(self, env_dir: str, command: str, *args, **kwargs):
