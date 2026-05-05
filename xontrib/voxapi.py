@@ -65,7 +65,7 @@ class VirtualEnvironment(typing.NamedTuple):
     bin: str
     lib: str
     inc: str
-
+    ldlib: str
 
 def _subdir_names():
     """
@@ -93,16 +93,19 @@ def _mkvenv(env_dir):
         binname = os.path.join(env_dir, "Scripts")
         incpath = os.path.join(env_dir, "Include")
         libpath = os.path.join(env_dir, "Lib", "site-packages")
+        ldlib = os.path.join(env_dir, "Lib")
     elif ON_POSIX:
         binname = os.path.join(env_dir, "bin")
         incpath = os.path.join(env_dir, "include")
         libpath = os.path.join(
             env_dir, "lib", "python%d.%d" % sys.version_info[:2], "site-packages"
         )
+        ldlib = os.path.join(env_dir, "lib")
+
     else:
         raise OSError("This OS is not supported.")
 
-    return VirtualEnvironment(env_dir, binname, libpath, incpath)
+    return VirtualEnvironment(env_dir, binname, libpath, incpath, ldlib)
 
 
 class EnvironmentInUse(Exception):
@@ -381,7 +384,15 @@ class Vox(collections.abc.Mapping):
             self.deactivate()
 
         type(self).oldvars = {"PATH": list(env["PATH"])}
+        if "LD_LIBRARY_PATH" in env:
+            type(self).oldvars['LD_LIBRARY_PATH'] = list(env['LD_LIBRARY_PATH'])
+        else:
+            env["LD_LIBRARY_PATH"] = []
+            type(self).oldvars['LD_LIBRARY_PATH'] = None
+
         env["PATH"].insert(0, ve.bin)
+        env["LD_LIBRARY_PATH"].insert(0, ve.ldlib)
+
         env["VIRTUAL_ENV"] = ve.env
         if "PYTHONHOME" in env:
             type(self).oldvars["PYTHONHOME"] = env.pop("PYTHONHOME")
@@ -400,7 +411,11 @@ class Vox(collections.abc.Mapping):
 
         if hasattr(type(self), "oldvars"):
             for k, v in type(self).oldvars.items():
-                env[k] = v
+                if v is None:
+                    del env[k]
+                else:
+                    env[k] = v
+
             del type(self).oldvars
 
         del env["VIRTUAL_ENV"]
