@@ -134,6 +134,7 @@ class VoxHandler(xcli.ArgParserAlias):
             interpreter=interpreter,
             prompt=prompt,
         )
+
         if link_project_dir:
             self.project_set(name)
 
@@ -396,7 +397,7 @@ class VoxHandler(xcli.ArgParserAlias):
         if not os.path.isdir(project):
             raise self.Error(f"{project} does not exist")
 
-        project_file = self._get_project_file()
+        project_file = self._get_project_file(venv)
         project_file.write_text(project)
 
     def _get_project_file(
